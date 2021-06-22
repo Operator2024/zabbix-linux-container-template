@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>5.0</version>
-    <date>2021-06-21T15:58:33Z</date>
+    <date>2021-06-22T15:25:48Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -11,11 +11,6 @@
         <template>
             <template>Template Linux Container</template>
             <name>Template Linux Container</name>
-            <templates>
-                <template>
-                    <name>Template App Zabbix Agent</name>
-                </template>
-            </templates>
             <groups>
                 <group>
                     <name>Templates</name>
@@ -243,6 +238,22 @@
                     <applications>
                         <application>
                             <name>Memory</name>
+                        </application>
+                    </applications>
+                </item>
+                <item>
+                    <name>System uptime (Guest)</name>
+                    <key>ct.uptime</key>
+                    <delay>10m</delay>
+                    <history>1w</history>
+                    <units>uptime</units>
+                    <description>Container uptime</description>
+                    <applications>
+                        <application>
+                            <name>General</name>
+                        </application>
+                        <application>
+                            <name>OS</name>
                         </application>
                     </applications>
                 </item>
@@ -576,11 +587,12 @@
                     </triggers>
                 </item>
                 <item>
-                    <name>System uptime</name>
+                    <name>System uptime (Host)</name>
                     <key>system.uptime</key>
                     <delay>10m</delay>
                     <history>1w</history>
                     <units>uptime</units>
+                    <description>Host system uptime</description>
                     <applications>
                         <application>
                             <name>General</name>
@@ -834,6 +846,23 @@
                     </graph_prototypes>
                 </discovery_rule>
             </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$LOAD_AVG_PER_CPU.MAX.WARN}</macro>
+                    <value>1.5</value>
+                    <description>Load per CPU considered sustainable. Tune if needed.</description>
+                </macro>
+                <macro>
+                    <macro>{$MEMORY.AVAILABLE.MIN}</macro>
+                    <value>20</value>
+                    <description>This macro is used as a threshold in memory available trigger.</description>
+                </macro>
+                <macro>
+                    <macro>{$SWAP.PFREE.MIN.WARN}</macro>
+                    <value>50</value>
+                    <description>-</description>
+                </macro>
+            </macros>
             <screens>
                 <screen>
                     <name>System performance</name>

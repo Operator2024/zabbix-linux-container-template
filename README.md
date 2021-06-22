@@ -4,16 +4,16 @@ Changes by compared with original version "kvaps":
  - Added userparameter ``` UserParameter=ct.cpu.num[*],nproc ```;
  - changed the formula for calculating "memory utilization", parameter "pavailable" was ```pavailable=(($ 6+$ 7)*100/$ 2)``` , now ``` pavailable=(100-($ 7*100/$ 2)) ```.
 
-The templete was exported from version 5 lts. Therefore, it was necessary to add global macros and filters to the detection rules.
+The templete was exported from version 5 lts.
 
-Macros:
- - {$LOAD_AVG_PER_CPU.MAX.WARN}
- - {$MEMORY.AVAILABLE.MIN}
- - {$SWAP.PFREE.MIN.WARN}
- 
+Template macros:
+ - {$LOAD_AVG_PER_CPU.MAX.WARN} - 1.5 - Load per CPU considered sustainable. Tune if needed.
+ - {$MEMORY.AVAILABLE.MIN} - 20 - This macro is used as a threshold in memory available trigger.
+ - {$SWAP.PFREE.MIN.WARN} - 50
+
 Discovery rules:
- - {#IFNAME}
- - {#FSTYPE}
+ - {#IFNAME} - need to change it to your regex.
+ - {#FSTYPE} - need to change it to your regex.
 
 For Zabbix version 5.4 and higher, you can use original zabbix template that are available [here](https://www.zabbix.com/ru/integrations/linux "Zabbix LXC template").
 
